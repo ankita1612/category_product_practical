@@ -7,113 +7,132 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Show listing of product
+    |--------------------------------------------------------------------------   
+    */
     public function index()
     {
-        $products = Product::with("category")->latest()->paginate(5);
+        try 
+        {           
+            $products = Product::with("category")->latest()->paginate(5);
 
-        return view('products.index', compact('products'))
+            return view('products.index', compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+        } 
+        catch (\Exception $e) 
+        {
+            pr($e->getMessage());
+            exit;           
+        }    
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Show create product form
+    |--------------------------------------------------------------------------   
+    */
     public function create()
     {
-        $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();
-       // $this->pr($categories->toArray());
-        return view('products.create',compact('categories'));
+        try
+        {        
+            $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();           
+            return view('products.create',compact('categories'));
+        }
+        catch (\Exception $e) 
+        {
+            pr($e->getMessage());
+            exit;           
+        } 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+     /*
+    |--------------------------------------------------------------------------
+    | Store product into DB
+    |--------------------------------------------------------------------------   
+    */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'category_id' => 'required'
-        ]);
+        try
+        {
+            $request->validate([
+                'name' => 'required',
+                'description' => 'required',            
+                'category_id' => 'required'
+            ]);
 
-        Product::create($request->all());
+            Product::create($request->all());
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product created successfully.');
-    }
+            return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        }
+        catch (\Exception $e) 
+        {
+            pr($e->getMessage());
+            exit;           
+        } 
+    }   
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        return view('products.show', compact('product'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+   /*
+    |--------------------------------------------------------------------------
+    | Show edit form
+    |--------------------------------------------------------------------------   
+    */
     public function edit(Product $product)
     {
-        $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();        
-
-        return view('products.edit', compact('product','categories'));
+        try
+        {
+            $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();        
+            return view('products.edit', compact('product','categories'));
+        }
+        catch (\Exception $e) 
+        {
+            pr($e->getMessage());
+            exit;           
+        } 
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\product  $product
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Update product
+    |--------------------------------------------------------------------------   
+    */
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required',
-            'category_id' => 'required',
-            'description' => 'required',
-            'price' => 'required'
-        ]);
-        $product->update($request->all());
+        try
+        {
+            $request->validate([
+                'name' => 'required',
+                'category_id' => 'required',
+                'description' => 'required',            
+            ]);
+            $product->update($request->all());
 
-        return redirect()->route('products.index')
-            ->with('success', 'Product updated successfully');
+            return redirect()->route('products.index')->with('success', 'Product updated successfully');
+        }
+        catch (\Exception $e) 
+        {
+            pr($e->getMessage());
+            exit;           
+        } 
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Delete product
+    |--------------------------------------------------------------------------   
+    */
     public function destroy(Product $product)
     {
-        $product->delete();
-
-        return redirect()->route('products.index')
-            ->with('success', 'Product deleted successfully');
+        try
+        {
+            $product->delete();
+            return redirect()->route('products.index')->with('success', 'Product deleted successfully');
+        }
+        catch (\Exception $e) 
+        {
+            pr($e->getMessage());
+            exit;           
+        } 
     }
-     public function pr($arr)
-    {
-        echo "<pre>";
-        print_R($arr);
-        echo "</pre>";
-    }
+    
 }
 

@@ -17,46 +17,48 @@
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
-    @endif                 
-                    
+    @endif  
 
-     <table class="table table-bordered table-responsive-lg">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Parent Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($categories as $category)
-            <tr>
-                <td>{{ $category->id}}</td>
-                <td>{{ $category->name}}</td>
-                <td>
-                    @if ($category->parent)
-                        {{ $category->parent->name}}
-                    @endif
-                </td>
-                <td>
-                    <a  href="{{ route('categories.edit',$category->id) }}">
-                            <i class="fas fa-edit  fa-lg"></i>
-                    </a>
-                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline-block;">
-                    
+    @if (count($categories)==0)
+         <div class="alert alert-danger" align="center">No record Found.</div>
+    @else           
 
-                        @method('DELETE')
-                        @csrf
-                       <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                            <i class="fas fa-trash fa-lg text-danger"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-    </table>
+         <table class="table table-bordered table-responsive-lg">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Parent Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($categories as $category)
+                <tr>
+                    <td>{{ $category->name}}</td>
+                    <td>
+                        @if ($category->parent)
+                            {{ $category->parent->name}}
+                        @endif
+                    </td>
+                    <td>
+                        <a  href="{{ route('categories.edit',$category->id) }}">
+                                <i class="fas fa-edit  fa-lg"></i>
+                        </a>
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline-block;">
+                        
 
-    {!! $categories->links() !!}
+                            @method('DELETE')
+                            @csrf
+                           <button type="submit" title="delete" style="border: none; background-color:transparent;">
+                                <i class="fas fa-trash fa-lg text-danger"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+        </table>
+
+        {!! $categories->links() !!}
+    @endif    
 
 @endsection

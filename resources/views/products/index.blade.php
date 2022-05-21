@@ -19,41 +19,41 @@
         </div>
     @endif
 
-    <table class="table table-bordered table-responsive-lg">
-        <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Category Name</th>
-            <th>description</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-        @foreach ($products as $product)
+    @if (count($products)==0)
+         <div class="alert alert-danger" align="center">No record Found.</div>
+    @else
+        <table class="table table-bordered table-responsive-lg">
             <tr>
-                <td>{{$product->id}}</td>
-                <td>{{$product->name}}</td>
-                <td>{{$product->category->name}}</td>                
-                <td>{{$product->description}}</td>
-                <td>{{$product->price}}</td>
-                
-                <td>
-                    <form action="" method="POST">                       
-                        <a  href="{{ route('products.edit',$product->id) }}">
-                            <i class="fas fa-edit  fa-lg"></i>
-                        </a>
-
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                            <i class="fas fa-trash fa-lg text-danger"></i>
-                        </button>
-                    </form>
-                </td>
+                <th>Name</th>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Actions</th>
             </tr>
-        @endforeach
-    </table>
+            @foreach ($products as $product)
+                <tr>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->category->name}}</td>                
+                    <td>{{$product->description}}</td>
+                    
+                    <td>
+                        <form action="" method="POST">                       
+                            <a  href="{{ route('products.edit',$product->id) }}">
+                                <i class="fas fa-edit  fa-lg"></i>
+                            </a>
 
-    {!! $products->links() !!}
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" title="delete" style="border: none; background-color:transparent;">
+                                <i class="fas fa-trash fa-lg text-danger"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
+
+        {!! $products->links() !!}
+    @endif
 
 @endsection

@@ -9,10 +9,10 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'category_id'];
-
+    
     public function subcategory()
     {
-        return $this->hasMany(\App\Models\Category::class, 'category_id');
+        return $this->hasMany(\App\Models\Category::class, 'category_id')->with('subcategory');
     }
 
     public function parent()

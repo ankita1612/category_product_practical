@@ -55,13 +55,7 @@
                     <textarea class="form-control" style="height:50px" name="description"
                         placeholder="description"></textarea>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <label>Price *</label>
-                    <input type="number" name="price" class="form-control" placeholder="Put the price">
-                </div>
-            </div>
+            </div>            
             
         </div>
         <div class="box-footer">
