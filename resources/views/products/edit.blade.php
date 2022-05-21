@@ -7,7 +7,7 @@
                 <h2>Edit Product</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="" title="Go back"> <i class="fas fa-backward "></i> </a>
+                 <a class="btn btn-primary" href="{{ route('products.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
             </div>
         </div>
     </div>
@@ -30,13 +30,13 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Name:</strong>
+                    <label>Name *</label>
                     <input type="text" name="name" value="{{ $product->name }}" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Category</strong>
+                    <label>Category *</label>
                     <select type="text" name="category_id" class="form-control">
                                         <option value="">None</option>
                         @if($categories)
@@ -54,27 +54,19 @@
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Description</strong>
+                    <label>Description * </label>
                     <textarea class="form-control" style="height:50px" name="description"
                         placeholder="description">{{ $product->description }}</textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Price</strong>
+                    <label>Price *</label>
                     <input type="number" name="price" class="form-control" placeholder=""
                         value="{{ $product->price }}">
                 </div>
             </div>
-
-
-
-
-
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
         </div>
-
+            <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

@@ -28,7 +28,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
-        $this->pr($categories->toArray());
+       // $this->pr($categories->toArray());
         return view('products.create',compact('categories'));
     }
 

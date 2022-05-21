@@ -23,8 +23,8 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
-        $this->pr($categories->toArray());
-        return view('category.create-category', compact('categories'));       
+       // $this->pr($categories->toArray());
+        return view('category.create', compact('categories'));       
         
     }
     
@@ -46,7 +46,8 @@ class CategoryController extends Controller
             'parent_id' =>$request->parent_id
         ]);
 
-        return redirect()->back()->with('success', 'Category has been created successfully.');        
+         return redirect()->route('categories.index')
+            ->with('success', 'Category created successfully.');
     }
      
     /**
@@ -69,9 +70,9 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();        
-        $this->pr($categories->toArray());
+      //  $this->pr($categories->toArray());
         $category_data=$category;
-        $this->pr($category_data->toArray());
+      //  $this->pr($category_data->toArray());
         return view('category.edit',compact('category_data','categories'));
     }
     

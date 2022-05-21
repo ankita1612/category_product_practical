@@ -1,41 +1,64 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">
-                    Create Category
-                    <a href="{{ route('categories.create') }}" class="btn btn-primary float-right">Create category</a>
-                </div>
-
-                <div class="card-body">
-                    
-                <?php /*@include('partials.alerts')  */?>
-
-                    <form action="{{ route('categories.store') }}" method="post">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="name">Category Name:</label>
-                            <input type="name" class="form-control" id="name" placeholder="Enter name" name="name">
-                            <span class="text-danger">{{ $errors->first('name') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="parent_category">Parent Category:</label>
-                            <select class="form-control" name="parent_category">
-                                <option value="">Select a category</option>
-                                @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger">{{ $errors->first('parent_category') }}</span>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2>Add New Category</h2>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-primary" href="{{ route('categories.index') }}" title="Go back"> <i class="fas fa-backward "></i> </a>
             </div>
         </div>
     </div>
-</div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Error!</strong> 
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form role="form" method="post" action="{{ route('categories.store') }}">
+        {{csrf_field()}}
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Category name*</label>
+                        <input type="text" name="name" class="form-control" placeholder="Category name" value="{{old('name')}}" required />
+                    </div>
+                </div>
+
+                
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Select parent category*</label>
+                        <select type="text" name="parent_id" class="form-control">
+                            <option value="">None</option>
+                            @if($categories)
+                                @foreach($categories as $category)
+                                    <?php $dash=''; ?>
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @if(count($category->subcategory))
+                                        @include('subCategoryList-option',['subcategories' => $category->subcategory,'selected_id'=>''])
+                                    @endif
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Create</button>
+
+        </div>
+    </form>
+
 @endsection

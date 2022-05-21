@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>App Name - @yield('title')</title>
+    <title>Category Products</title>
 
     <!-- Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
@@ -12,6 +12,7 @@
     </script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <style>
         .footer {
@@ -29,8 +30,16 @@
 </head>
 
 <body>
-    @section('sidebar')
 
+    @section('sidebar')
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                 <a class="nav-link" href="{{ route('categories.index') }}">Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+            </li>
+        </ul>
     @show
 
     <div class="container">
