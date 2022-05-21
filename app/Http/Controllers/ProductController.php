@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
+        $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();
        // $this->pr($categories->toArray());
         return view('products.create',compact('categories'));
     }
@@ -72,7 +72,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();        
+        $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();        
 
         return view('products.edit', compact('product','categories'));
     }

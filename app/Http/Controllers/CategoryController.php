@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
+        $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();
        // $this->pr($categories->toArray());
         return view('category.create', compact('categories'));       
         
@@ -38,12 +38,12 @@ class CategoryController extends Controller
     {
         $validator = $request->validate([
             'name'      => 'required',            
-            'parent_id' => 'nullable|numeric'
+            'category_id' => 'nullable|numeric'
         ]);
 
         Category::create([
             'name' => $request->name,            
-            'parent_id' =>$request->parent_id
+            'category_id' =>$request->category_id
         ]);
 
          return redirect()->route('categories.index')
@@ -69,7 +69,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();        
+        $categories = Category::where('category_id', null)->orderby('name', 'asc')->get();        
       //  $this->pr($categories->toArray());
         $category_data=$category;
       //  $this->pr($category_data->toArray());
@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         $validator = $request->validate([
             'name'      => 'required',            
-            'parent_id' => 'nullable|numeric'
+            'category_id' => 'nullable|numeric'
         ]);
 
         $this->pr($request->all());

@@ -33,14 +33,14 @@
             </div>
             <div class="form-group">
                 <label for="pwd">Parent Category *</label>
-                <select type="text" name="parent_id" class="form-control">
+                <select type="text" name="category_id" class="form-control">
                             <option value="">None</option>
                             @if($categories)
                                 @foreach($categories as $category)
                                     <?php $dash=''; ?>
-                                    <option value="{{$category->id}}" @if($category_data->parent_id == $category->id) {{ 'selected' }} @endif>{{$category->name}}</option>
+                                    <option value="{{$category->id}}" @if($category_data->category_id == $category->id) {{ 'selected' }} @endif>{{$category->name}}</option>
                                     @if(count($category->subcategory))
-                                        @include('subCategoryList-option',['subcategories' => $category->subcategory,'selected_id'=>$category_data->parent_id])
+                                        @include('subCategoryList-option',['subcategories' => $category->subcategory,'selected_id'=>$category_data->category_id])
                                     @endif
                                 @endforeach
                             @endif
