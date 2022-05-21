@@ -17,6 +17,6 @@ use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::any('category/create', [CategoryController::class, 'createCategory'])->name('createCategory');
+
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
